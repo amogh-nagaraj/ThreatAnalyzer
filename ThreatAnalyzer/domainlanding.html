@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Domain Threat Analyzer</title>
+  <style>
+   body {
+    /* Fallback for older browsers */
+    background-color: #000000;
+    /* Gradient background */
+    background: linear-gradient(to bottom, #381A67, #022D77, #000000);
+    /* Ensure background covers the whole page */
+    min-height: 100vh;
+    margin: 0;
+    /* Optional: Set text color to contrast with background */
+    color: white;
+    font-family: Arial, sans-serif;
+    padding-left:20px;
+    padding-top:20px;
+  }
+
+config summary {
+      cursor: pointer;
+      font-size: 1.2em;
+      color: white;
+      text-decoration: underline;
+    }
+
+    config details {
+      margin-top: 10px;
+    }
+
+    config summary:hover {
+      color: white;
+    }
+
+    config summary::after {
+      content: " ▼"; /* Down arrow when collapsed */
+    }
+
+    config details[open] summary::after {
+      content: " ▲"; /* Up arrow when expanded */
+    }
+
+   #apiKeySection {
+      display: none; /* Initially hidden */
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+    .collapsible {
+      cursor: pointer;
+      color: blue;
+      text-decoration: underline;
+      margin-bottom: 10px;
+    }
+
+.container {
+  max-width: 500px;
+  max-height: 400px;
+  width: 250px;
+  height: 150px;
+  margin: 20px;
+  background-color: #fff;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.header-container {
+            display: flex;
+            align-items: center; /* Align items vertically */
+            justify-content: space-between; /* Align items horizontally */
+            padding: 10px; /* Add padding for spacing */
+            
+        }
+
+.logo {
+            max-width: 100px; /* Example max-width for logo */
+            height: auto; /* Maintain aspect ratio */
+            margin-right: 600px; /* Adjust margin between h1 and img */
+        }
+
+
+.header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 400px;
+  transition: background-color 0.3s;
+}
+
+.button:hover {
+  background-color: #0056b3;
+}
+
+.display-table {
+padding: 10px;
+text-align: left;
+border: 0px;
+}
+
+.results-table {
+  width: 50%;
+  margin-top: 20px;
+  border-collapse: collapse;
+}
+
+.results-table th, .results-table td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+.results-table th {
+  background-color: #381A67;
+}
+
+.results-table td {
+  vertical-align: top;
+}
+
+.results-table td.domain {
+  font-weight: bold;
+}
+
+.error-message {
+  color: red;
+  margin-top: 10px;
+}
+
+.loading {
+  display: none;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.loading img {
+  width: 50px;
+}
+
+.hidden {
+  display: none;
+}
+
+ @keyframes blink {
+            0% { visibility: hidden; }
+            50% { visibility: visible; }
+            100% { visibility: hidden; }
+        }
+
+        .blinking-text {
+            animation: blink 1s infinite; /* Adjust animation duration as needed */
+        }
+
+
+
+    }
+  </style>
+
+</head>
+<body>
+  <div class="header-container"><h1>Domain Threat Analyzer</h1><img class="logo" src="ibm-security-logo.png"></img></div>
+
+<config>
+    <details>
+      <summary>Config</summary>
+      <div>
+       <table style="padding:6px"><tr><td>
+    <label for="virusTotalApiKey">VirusTotal API Key:</label></td>
+    <td><input type="text" id="virusTotalApiKey" placeholder="Enter VirusTotal API Key"><br><br></td></tr>
+
+    <tr><td><label for="alienVaultApiKey">AlienVault API Key:</label></td>
+    <td><input type="text" id="alienVaultApiKey" placeholder="Enter AlienVault API Key"><br><br></td></tr>
+
+    <tr><td><label for="paloAltoApiKey">Palo Alto API Key:</label></td>
+    <td><input type="text" id="paloAltoApiKey" placeholder="Enter Palo Alto API Key"><br><br></td></tr>
+
+    <tr><td><label for="googleSafeBrowsingApiKey">Google Safe Browsing API Key:</label></td>
+    <td><input type="text" id="googleSafeBrowsingApiKey" placeholder="Enter Google Safe Browsing API Key"><br><br></td></tr>
+</table>
+      </div>
+    </details>
+  </config>
+<br><br>
+
+  <p>Enter multiple domains (one per line):</p>
+  <textarea class="container" id="domainsInput" placeholder="Enter domains"></textarea><br><br>
+  <table class="display-table">
+  <tr>
+  <td style="padding:10px"><button class="button" id="scanButton">Scan Domains</button></td>
+  <td style="padding:10px"><button class="button" id="exportCsvButton">Export To CSV</button></td>
+  <td style="padding:10px"><div class="blinking-text" id="status"></div></td>
+  </tr></table>
+
+
+  <table class="results-table" id="resultsTable">
+    <thead>
+      <tr>
+        <th>Domain</th>
+        <th>VirusTotal Score</th>
+	<th>AlientVault Score</th>
+        <th>Palo Alto Category</th>
+        <th>Domain Create Date</th>
+	<th>Google Safe Browsing</th>
+     </tr>
+    </thead>
+    <tbody id="resultsBody">
+    </tbody>
+  </table>
+
+  <script src="domainlanding.js"></script>
+  <script src="exporttocsv.js"></script>
+</body>
+</html>

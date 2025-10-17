@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Threat Analyzer</title>
+  <style>
+   body {
+    /* Fallback for older browsers */
+    background-color: #000000;
+    /* Gradient background */
+    background: linear-gradient(to bottom, #381A67, #022D77, #000000);
+    /* Ensure background covers the whole page */
+    min-height: 100vh;
+    margin: 0;
+    /* Optional: Set text color to contrast with background */
+    color: white;
+    font-family: Arial, sans-serif;
+    padding-left:20px;
+    padding-top:20px;
+  }
+
+.container {
+  max-width: 500px;
+  width: 250px;
+  height: 150px;
+  margin: 20px;
+  background-color: #fff;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 400px;
+  transition: background-color 0.3s;
+}
+
+.button:hover {
+  background-color: #0056b3;
+}
+
+.results-table {
+  width: 50%;
+  margin-top: 20px;
+  border-collapse: collapse;
+}
+
+.results-table th, .results-table td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+.results-table th {
+  background-color: #381A67;
+}
+
+.results-table td {
+  vertical-align: top;
+}
+
+.results-table td.domain {
+  font-weight: bold;
+}
+
+.error-message {
+  color: red;
+  margin-top: 10px;
+}
+
+.loading {
+  display: none;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.loading img {
+  width: 50px;
+}
+
+.hidden {
+  display: none;
+}
+
+    }
+  </style>
+</head>
+<body>
+  <table class="display-table">
+  <tr><td><font size=24>Welcome to Threat Analyzer</font></tr></td>
+  <tr><td><br><br><br></td></tr>
+  <tr><td><font size=4>Please choose one of the following options</font></td></tr>
+  <tr><td><br><br></td></tr>
+  <tr><td><button class="button" id="domainlandingPageButton">Scan Domains</button></td></tr>
+  <tr><td><br><br></td></tr>
+  <td style="padding:10px"><button class="button" id="IPlandingPageButton">Scan IP(s)</button></td></tr></table> 
+
+
+  <script src="index.js"></script>
+</body>
+</html>

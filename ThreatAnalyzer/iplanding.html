@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>IP Threat Analyzer</title>
+  <style>
+   body {
+    /* Fallback for older browsers */
+    background-color: #000000;
+    /* Gradient background */
+    background: linear-gradient(to bottom, #381A67, #022D77, #000000);
+    /* Ensure background covers the whole page */
+    min-height: 100vh;
+    margin: 0;
+    /* Optional: Set text color to contrast with background */
+    color: white;
+    font-family: Arial, sans-serif;
+    padding-left:20px;
+    padding-top:20px;
+  }
+
+config summary {
+      cursor: pointer;
+      font-size: 1.2em;
+      color: white;
+      text-decoration: underline;
+    }
+
+    config details {
+      margin-top: 10px;
+    }
+
+    config summary:hover {
+      color: white;
+    }
+
+    config summary::after {
+      content: " ▼"; /* Down arrow when collapsed */
+    }
+
+    config details[open] summary::after {
+      content: " ▲"; /* Up arrow when expanded */
+    }
+
+   #apiKeySection {
+      display: none; /* Initially hidden */
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+    .collapsible {
+      cursor: pointer;
+      color: blue;
+      text-decoration: underline;
+      margin-bottom: 10px;
+    }
+
+
+.container {
+  max-width: 500px;
+  max-height: 400px;
+  width: 250px;
+  height: 150px;
+  margin: 20px;
+  background-color: #fff;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.header-container {
+            display: flex;
+            align-items: center; /* Align items vertically */
+            justify-content: space-between; /* Align items horizontally */
+            padding: 10px; /* Add padding for spacing */
+            
+        }
+
+.logo {
+            max-width: 100px; /* Example max-width for logo */
+            height: auto; /* Maintain aspect ratio */
+            margin-right: 600px; /* Adjust margin between h1 and img */
+        }
+
+.header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 400px;
+  transition: background-color 0.3s;
+}
+
+.button:hover {
+  background-color: #0056b3;
+}
+
+.results-table {
+  width: 50%;
+  margin-top: 20px;
+  border-collapse: collapse;
+}
+
+.results-table th, .results-table td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+.results-table th {
+  background-color: #381A67;
+}
+
+.results-table td {
+  vertical-align: top;
+}
+
+.results-table td.domain {
+  font-weight: bold;
+}
+
+.error-message {
+  color: red;
+  margin-top: 10px;
+}
+
+.loading {
+  display: none;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.loading img {
+  width: 50px;
+}
+
+.hidden {
+  display: none;
+}
+
+    }
+  </style>
+</head>
+<body>
+  <div class="header-container"><h1>IP Threat Analyzer</h1><img class="logo" src="ibm-security-logo.png"></img></div>
+
+<config>
+    <details>
+      <summary>Config</summary>
+      <div>
+       <table style="padding:6px"><tr><td>
+    <label for="virusTotalApiKey">VirusTotal API Key:</label></td>
+    <td><input type="text" id="virusTotalApiKey" placeholder="Enter VirusTotal API Key"><br><br></td></tr>
+
+    <tr><td><label for="abusedIpApiKey">AbuseDBIP API Key:</label></td>
+    <td><input type="text" id="abusedIpApiKey" placeholder="Enter Abuse DBIP API Key"><br><br></td></tr>
+
+    <tr><td><label for="paloAltoApiKey">Palo Alto API Key:</label></td>
+    <td><input type="text" id="paloAltoApiKey" placeholder="Enter Palo Alto API Key"><br><br></td></tr>
+
+    <tr><td><label for="googleSafeBrowsingApiKey">Google Safe Browsing API Key:</label></td>
+    <td><input type="text" id="googleSafeBrowsingApiKey" placeholder="Enter Google Safe Browsing API Key"><br><br></td></tr>
+</table>
+      </div>
+    </details>
+  </config>
+<br><br>
+
+
+
+  <br><br><font style="padding:10px"<p>Enter multiple IP (one per line):</p></font>
+  <textarea class="container" id="IPInput" placeholder="Enter IP(s)"></textarea><br><br>
+  <table class="display-table">
+  <tr>
+  <td style="padding:10px"><button class="button" id="IPscanButton">Scan IP(s)</button></td>
+  <td style="padding:10px"><button class="button" id="exportCsvButton">Export To CSV</button></td>
+  <td style="padding:10px"><div id="status" class="blinking-text"></div></td>
+  </tr></table> 
+
+
+  <table class="results-table" id="resultsTable">
+    <thead>
+      <tr>
+        <th>IP</th>
+        <th>VirusTotal Score</th>
+        <th>VirusTotal IP Owner</th>
+        <th>Palo Alto Category</th>
+	<th>AbuseDBIP Confidence</th>
+	<th>AbuseDBIP is Tor?</th>
+	<th>AbuseDBIP Country Code</th>
+	<th>AbuseDBIP Total Reports</th>
+	<th>Google Safe Browsing</th>
+      </tr>
+    </thead>
+    <tbody id="resultsBody">
+    </tbody>
+  </table>
+
+  <script src="iplanding.js"></script>
+  <script src="exporttocsv.js"></script>
+</body>
+</html>

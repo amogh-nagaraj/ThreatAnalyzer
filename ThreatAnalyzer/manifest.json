@@ -1,0 +1,28 @@
+{
+  "manifest_version": 2,
+  "name": "Threat Analyzer",
+  "description": "Developed by Amogh Nagaraj to intereact with API(s) of various community/paid threat intelligence platforms and provide results",
+  "version": "2.1",
+  "permissions": [
+    "tabs",
+    "activeTab",
+    "http://*/*",
+    "https://*/*"
+  ],
+  "background": {
+    "scripts": [
+     "background.js",
+     "index.js",
+     "exporttocsv.js"
+    ],
+    "persistent": false
+  },
+  "browser_action": {
+    "default_icon": {
+      "16": "icon16.png"
+  
+ }
+}
+
+
+}
